@@ -4,14 +4,21 @@ echo "$1" > id_rsa
 
 ssh -i id_rsa -p $8 $2@$3 '
 	cd $4
-	git pull
 	export VAULT_PASS=$5
 
-	virtualenv -p /usr/bin/python3 .
+	if [[ "$(git pull)" != *"Already up to date."* ]]; then
+		echo "Updated repo, cloning"
+		virtualenv -p /usr/bin/python3 .
+		source bin/activate
+		pip install -r ./requirements.txt
+		ansible-galaxy install -r requirements.yml
+	fi
+
+	echo "Setting proxmox secrets"
 	source bin/activate
-	pip install -r ./requirements.txt
-	ansible-galaxy install -r requirements.yml
 	source proxmox_secrets.sh
 
-	./run.sh $6 --tags $7
+	echo "Running playbook"
+	echo $5 > ./_vault_pass
+        ansible-playbook -i proxmox_inventory.py -i hosts --vault-password-file ./_vault_pass $6 --tags $7
 '
