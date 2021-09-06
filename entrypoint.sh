@@ -2,7 +2,7 @@
 
 echo "$1" > id_rsa
 
-ssh -i id_rsa $2@$3 '
+ssh -i id_rsa -p $8 $2@$3 '
 	cd $4
 	git pull
 	export VAULT_PASS=$5
