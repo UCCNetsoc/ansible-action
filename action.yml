@@ -20,14 +20,17 @@ inputs:
   vault_pass:
     description: Password to unlock vault
     required: true
+  tags:
+    description: Tags to pass to ansible-playbook command
+    required: true
   
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.playbook }}
-    - ${{ inputs.control_host }}
-    - ${{ inputs.control_user }}
     - ${{ inputs.control_ssh_key }}
+    - ${{ inputs.control_user }}
+    - ${{ inputs.control_host }}
     - ${{ inputs.directory }}
     - ${{ inputs.vault_pass }}
+    - ${{ inputs.playbook }}
