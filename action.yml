@@ -23,6 +23,9 @@ inputs:
   tags:
     description: Tags to pass to ansible-playbook command
     required: true
+  port:
+    description: Port used to ssh into control host
+    required: true
   
 runs:
   using: 'docker'
@@ -34,3 +37,5 @@ runs:
     - ${{ inputs.directory }}
     - ${{ inputs.vault_pass }}
     - ${{ inputs.playbook }}
+    - ${{ inputs.tags }}
+    - ${{ inputs.port }}
