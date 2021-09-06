@@ -1,5 +1,7 @@
 FROM ubuntu
 
+RUN apt update && apt install openssh-client
+
 COPY LICENSE README.md /
 
 COPY entrypoint.sh /entrypoint.sh
