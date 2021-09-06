@@ -1,12 +1,33 @@
-name: 'Container Action Template'
-description: 'Get started with Container actions'
+name: 'Ansible playbook runner via SSH Action'
+description: 'Runs ansible playbooks located on a remote server'
 author: 'GitHub'
 inputs: 
-  myInput:
-    description: 'Input to use'
-    default: 'world'
+  playbook:
+    description: Playbook to run
+    default: provision-infra-web.yml
+  control_host:
+    description: Control host to SSH onto and run playbooks on
+    required: true
+  control_user: 
+    description: Username for control host
+    required: true
+  control_ssh_key: 
+    description: SSH key for control host
+    required: true
+  directory:
+    description: Git directory on control host where playbooks are located
+    required: true
+  vault_pass:
+    description: Password to unlock vault
+    required: true
+  
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.myInput }}
+    - ${{ inputs.playbook }}
+    - ${{ inputs.control_host }}
+    - ${{ inputs.control_user }}
+    - ${{ inputs.control_ssh_key }}
+    - ${{ inputs.directory }}
+    - ${{ inputs.vault_pass }}
