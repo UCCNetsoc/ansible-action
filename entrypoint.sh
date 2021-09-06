@@ -2,7 +2,7 @@
 
 echo "$1" > id_rsa
 
-ssh -i id_rsa -p $8 $2@$3 '
+ssh -q -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null -i id_rsa -p $8 $2@$3 '
 	cd $4
 	export VAULT_PASS=$5
 
