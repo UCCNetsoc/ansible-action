@@ -1,6 +1,6 @@
 FROM alpine:3.10
 
-RUN apk add --update --no-cache openssh
+RUN apk add --update --no-cache openssh bash
 
 COPY LICENSE README.md /
 
