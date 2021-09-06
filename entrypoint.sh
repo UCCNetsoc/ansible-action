@@ -23,6 +23,6 @@ ssh -q -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnow
 	echo "Running playbook."
 	echo $5 > ./_vault_pass
         ansible-playbook -i proxmox_inventory.py -i hosts --vault-password-file ./_vault_pass $6 --tags $7
-'
+' 2>&1
 
 echo "Execution finished"
